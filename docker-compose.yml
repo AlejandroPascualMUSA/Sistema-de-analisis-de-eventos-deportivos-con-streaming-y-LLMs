@@ -1,0 +1,115 @@
+services:
+  kafka:
+    image: apache/kafka:3.7.2
+    hostname: kafka
+    container_name: laliga-kafka
+    ports:
+      - "29092:29092"
+    environment:
+      # Kafka en modo KRaft, sin Zookeeper.
+      KAFKA_NODE_ID: "1"
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      KAFKA_LISTENERS: "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093,PLAINTEXT_HOST://0.0.0.0:29092"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092"
+      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
+      KAFKA_LOG_DIRS: "/tmp/kraft-combined-logs"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: "0"
+
+  spark-master:
+    image: spark:3.5.8
+    hostname: spark-master
+    container_name: laliga-spark-master
+    user: root
+    working_dir: /opt/app
+    command:
+      - /opt/spark/bin/spark-class
+      - org.apache.spark.deploy.master.Master
+      - --host
+      - spark-master
+      - --port
+      - "7077"
+      - --webui-port
+      - "8080"
+    environment:
+      PYTHONPATH: /opt/app
+      HOME: /tmp
+      SPARK_LOCAL_DIRS: /tmp/spark
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    volumes:
+      - ./:/opt/app
+    depends_on:
+      - kafka
+
+  spark-worker:
+    image: spark:3.5.8
+    hostname: spark-worker
+    container_name: laliga-spark-worker
+    user: root
+    working_dir: /opt/app
+    command:
+      - /opt/spark/bin/spark-class
+      - org.apache.spark.deploy.worker.Worker
+      - spark://spark-master:7077
+      - --webui-port
+      - "8081"
+    environment:
+      PYTHONPATH: /opt/app
+      HOME: /tmp
+      SPARK_LOCAL_DIRS: /tmp/spark
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./:/opt/app
+    depends_on:
+      - spark-master
+
+  ollama:
+    image: ollama/ollama:latest
+    hostname: ollama
+    container_name: laliga-ollama
+    ports:
+      - "11434:11434"
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+    volumes:
+      # Volumen con nombre fijo para que los modelos no desaparezcan al reiniciar
+      # ni al cambiar el nombre de la carpeta del proyecto.
+      - ollama_models:/root/.ollama
+
+  app:
+    build: .
+    container_name: laliga-app
+    working_dir: /opt/app
+    environment:
+      PYTHONPATH: /opt/app
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_TOPIC: statsbomb_events
+      OUTPUT_BASE_PATH: /opt/app/output
+      OLLAMA_BASE_URL: http://ollama:11434
+      # Debe coincidir exactamente con el nombre que aparece en: ollama list
+      OLLAMA_MODEL: "llama3.2:latest"
+      OLLAMA_NUM_CTX: "4096"
+      OLLAMA_TIMEOUT: "900"
+    volumes:
+      - ./:/opt/app
+    depends_on:
+      - kafka
+      - ollama
+    command:
+      - tail
+      - -f
+      - /dev/null
+
+volumes:
+  ollama_models:
+    name: laliga_ollama_models
