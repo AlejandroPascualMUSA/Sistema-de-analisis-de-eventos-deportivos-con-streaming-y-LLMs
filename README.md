@@ -58,6 +58,16 @@ laliga_statsbomb/
 └── reports/
 ```
 
+## Eventos faltantes
+
+Este proyecto fue desarrollado utilizando datos de eventos de StatsBomb correspondientes a LaLiga 2024/25. Debido a las restricciones de licencia de dichos datos, no se incluyen en este repositorio.
+
+Para probar el sistema, pueden utilizarse conjuntos de datos públicos compatibles, como los disponibles en Kaggle:
+
+https://www.kaggle.com/datasets/saurabhshahane/statsbomb-football-data
+
+Tras sustituir los datos originales por un conjunto de datos propio, será necesario actualizar la base de conocimiento utilizada por el sistema RAG para que refleje los equipos y competiciones presentes en los nuevos datos.
+
 ## Servicios Docker
 
 El proyecto se ejecuta con Docker Compose. Los servicios principales son:
