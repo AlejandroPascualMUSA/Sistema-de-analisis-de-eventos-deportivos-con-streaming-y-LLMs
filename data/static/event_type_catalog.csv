@@ -1,0 +1,14 @@
+event_type,interpretation
+Pass,"Acción de pase. Se evalúa con outcome, longitud, altura, destinatario y destino."
+Shot,"Remate. Se interpreta con outcome, xG, body part y localización."
+Carry,Conducción con balón. Útil para progresión y superación de líneas.
+Pressure,Presión defensiva. Señala actividad sin balón y fases de acoso al poseedor.
+Ball Recovery,Recuperación. Indica recuperación de posesión o intervención tras balón dividido.
+Interception,Intercepción de pase. Mide lectura defensiva y posicionamiento.
+Duel,Disputa. Se complementa con tipo y outcome.
+Foul Committed,Falta cometida. Mide interrupciones y riesgo disciplinario.
+Foul Won,Falta recibida. Puede reflejar habilidad para proteger balón o progresar bajo contacto.
+Clearance,Despeje. Frecuente cuando un equipo defiende cerca de su área.
+Dribble,Regate. Se interpreta con outcome y zona.
+Starting XI,Evento táctico inicial que contiene formación y alineación.
+Substitution,Cambio. Puede modificar la estructura táctica y el ritmo.

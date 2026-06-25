@@ -1,0 +1,23 @@
+metric,description
+total_events,"Volumen total de eventos registrados para un equipo o jugador. Ayuda a estimar presencia en el flujo del partido, pero no equivale por sí solo a dominio."
+passes,"Número de pases intentados. Debe interpretarse con zonas, intención y presión rival."
+successful_passes,Pases sin outcome negativo en StatsBomb; se usa para calcular acierto de pase.
+pass_success_rate,"Porcentaje de pases completados. Un valor alto puede indicar control, pero también circulación poco arriesgada."
+shots,Tiros totales. Se debe complementar con xG y localización de remate.
+goals,Goles registrados a partir de eventos Shot con outcome Goal u Own Goal Against según la lógica del pipeline.
+xg_total,Expected goals acumulado. Estima calidad de ocasiones y separa cantidad de tiros de probabilidad de marcar.
+fouls_committed,"Faltas cometidas. Indica interrupción, agresividad defensiva o dificultad para controlar ciertas zonas."
+fouls_won,"Faltas recibidas. Puede señalar capacidad para progresar, proteger balón o atraer contactos."
+ball_recoveries,"Recuperaciones de balón. Miden capacidad de volver a intervenir tras pérdida, disputa o presión."
+pressures,Presiones. Indican actividad defensiva sin balón y pueden revelar fases de presión alta o presión tras pérdida.
+interceptions,Intercepciones. Señalan lectura defensiva y cortes de líneas de pase.
+clearances,Despejes. Suelen aumentar en equipos sometidos cerca de su área o defendiendo centros.
+carries,Conducciones. Útiles para medir progresión individual con balón.
+dribbles,"Regates intentados. Deben interpretarse con éxito, zona y ventaja generada."
+successful_dribbles,Regates completados. Aportan información sobre desequilibrio individual.
+final_third_events,Eventos realizados en el último tercio. Miden presencia territorial ofensiva.
+attacking_third_entries,Entradas al último tercio por pase o conducción. Miden progresión hacia zonas de ataque.
+avg_event_x,Coordenada media X de eventos. Aproxima altura media de intervención.
+obv_total_net,On-Ball Value neto acumulado si está disponible. Estima valor añadido por acciones con balón.
+event_value_total,"Valor agregado usado por el pipeline, combinando OBV cuando existe y reglas simples para eventos relevantes."
+events_in_interval,Eventos por intervalo temporal. Sirve para detectar picos de intensidad o dominio por tramos.
