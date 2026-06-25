@@ -361,7 +361,7 @@ La ejecución final se realiza desde PowerShell.
 ### 13.1 Entrar en el proyecto
 
 ```powershell
-cd "C:\Users\aleja\Master\BDP II\Trabajo_final\laliga_statsbomb"
+cd "C:\Users\..."
 ```
 
 ### 13.2 Parar sin borrar volúmenes
