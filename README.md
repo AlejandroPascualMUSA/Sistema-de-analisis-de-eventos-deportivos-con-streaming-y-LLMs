@@ -95,7 +95,7 @@ Para limpiar una ejecución anterior se eliminan manualmente las carpetas `outpu
 Usar la ruta real del proyecto:
 
 ```powershell
-cd "C:\Users\aleja\Master\BDP II\Trabajo_final\laliga_statsbomb"
+cd "C:\Users\..."
 ```
 
 ## 2. Parar contenedores sin borrar volúmenes
@@ -222,7 +222,7 @@ En este proyecto los identificadores de partido son el nombre del fichero sin `.
 Abrir una PowerShell nueva y ejecutar:
 
 ```powershell
-cd "C:\Users\aleja\Master\BDP II\Trabajo_final\laliga_statsbomb"
+cd "C:\Users\..."
 ```
 
 Después:
@@ -247,7 +247,7 @@ Esta terminal queda abierta porque Spark está escuchando Kafka.
 Abrir otra PowerShell y ejecutar:
 
 ```powershell
-cd "C:\Users\aleja\Master\BDP II\Trabajo_final\laliga_statsbomb"
+cd "C:\Users\..."
 ```
 
 Después:
@@ -364,7 +364,7 @@ output/aggregates/intensity
 no hace falta repetir Kafka, Spark ni producer. Basta con regenerar el índice RAG y los informes:
 
 ```powershell
-cd "C:\Users\aleja\Master\BDP II\Trabajo_final\laliga_statsbomb"
+cd "C:\Users\..."
 
 docker compose up -d app ollama kafka
 
